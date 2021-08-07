@@ -26,7 +26,7 @@ export const ProductDetailRedcuer = (
   switch (action.type) {
     case PRODCUT_DETAIL_REQUEST:
       console.log("PRODCUT_DETAIL_REQUEST");
-      return { loading: true, ...state };
+      return { ...state, loading: true };
     case PRODCUT_DETAIL_SUCCESS:
       return { loading: false, product: action.payload };
     case PRODCUT_DETAIL_FAIL:
