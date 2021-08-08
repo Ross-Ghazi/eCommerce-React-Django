@@ -27,11 +27,6 @@ function ProductScreen({ match, history }) {
     [match, dispatch]
   );
 
-  let qtyArray = [];
-  for (let i = 1; i <= product.countInStock; ++i) {
-    qtyArray.push(i);
-  }
-
   const addToCardHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
@@ -98,9 +93,9 @@ function ProductScreen({ match, history }) {
                           onChange={(e) => setQty(e.target.value)}
                           value={qty}
                         >
-                          {qtyArray.map((i) => (
-                            <option key={i} value={i}>
-                              {i}
+                          {[...Array(product.countInStock).keys()].map((i) => (
+                            <option key={i + 1} value={i + 1}>
+                              {i + 1}
                             </option>
                           ))}
                         </Form.Select>
