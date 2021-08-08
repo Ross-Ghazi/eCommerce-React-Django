@@ -27,7 +27,6 @@ export const listProducts = () => async (dispatch) => {
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
-    console.log("listProductDetails Action");
     dispatch({ type: PRODCUT_DETAIL_REQUEST });
     const url = `/api/products/${id}`;
     const response = await fetch(url);
