@@ -25,6 +25,11 @@ function CartScreen({ match, history, location }) {
     }
   }, [dispatch, productId, qty]);
 
+  const removeCardHandler = (id) => {};
+  const checkoutHandler = () => {
+    history.push("/login?redirect=shipping");
+  };
+
   return (
     <Row>
       <Col md={8}>
@@ -51,7 +56,9 @@ function CartScreen({ match, history, location }) {
                     {" "}
                     <Form.Select
                       onChange={(e) =>
-                        dispatch(addToCart(item.product, e.target.value))
+                        dispatch(
+                          addToCart(item.product, Number(e.target.value))
+                        )
                       }
                       value={item.qty}
                     >
@@ -62,13 +69,49 @@ function CartScreen({ match, history, location }) {
                       ))}
                     </Form.Select>{" "}
                   </Col>
+                  <Col md={1}>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => removeCardHandler(item.product)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </Button>
+                  </Col>
                 </Row>
               </ListGroup>
             ))}
           </ListGroup>
         )}
       </Col>
-      <Col md={4}></Col>
+      <Col md={4}>
+        <Card>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <h2>
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                items
+              </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+          </ListGroup>
+          <ListGroup>
+            <ListGroup.Item>
+              <Button
+                type="button"
+                className="btn-block"
+                disables={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                Proceed to checkpout
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
     </Row>
   );
 }
