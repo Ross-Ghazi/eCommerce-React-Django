@@ -3,7 +3,7 @@ import { CART_REMOVE_ITEM, CART_ADD_ITEM } from "../constants/cartConstants";
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const url = `/api/products/${id}`;
   const response = await fetch(url);
-  const { data } = await response.json();
+  const data = await response.json();
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
