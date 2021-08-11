@@ -5,21 +5,32 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_LOGOUT,
 } from "../constants/userConstants";
-im;
 
-export const Login = (email, password) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
     const url = "/api/users/login/";
     const config = { headers: { "Content-type": "application/json" } };
     const { data } = await axios.post(
-      "/api/users/login",
+      "/api/users/login/",
       { username: email, password: password },
       config
     );
 
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    // const config = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ username: email, password: password }),
+    // };
+    // const response = await fetch(url, config);
+    // if (response.status >= 400 && response.status < 600) {
+    //   throw new Error();
+    // }
+    // const data = await response.json();
 
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
