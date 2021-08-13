@@ -5,7 +5,7 @@ export default function FormContainer({ children }) {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <Col zs={12} ms={6}>
+        <Col xs={12} md={6}>
           {children}
         </Col>
       </Row>
