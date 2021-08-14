@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
+import { USER_UPDATE_RESET } from "../constants/userConstants";
 
 function ProfileScreen({ location, history }) {
   const [name, setName] = useState("");
@@ -22,25 +23,39 @@ function ProfileScreen({ location, history }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+
+  const { success } = userUpdateProfile;
+  console.log(success);
   useEffect(() => {
+    console.log("*****");
+
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_RESET });
         dispatch(getUserDetails("profile"));
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [history, dispatch, userInfo, user]);
+  }, [history, dispatch, success, user, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (password != password2) {
       setMessage("Passwords do not match");
     } else {
-      console.log("..Updating");
+      dispatch(
+        updateUserProfile({
+          id: user._id,
+          name: name,
+          email: email,
+          password: password,
+        })
+      );
     }
   };
 
