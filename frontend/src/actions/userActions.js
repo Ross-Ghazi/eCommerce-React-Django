@@ -111,12 +111,10 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        user,
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-
-    const { data } = await axios.put(url, config);
+    const { data } = await axios.put(url, user, config);
     dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
