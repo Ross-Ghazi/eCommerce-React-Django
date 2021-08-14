@@ -14,6 +14,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  USER_DETAIL_RESET,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -42,6 +43,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT });
+  dispatch({ type: USER_DETAIL_RESET });
   localStorage.removeItem("userInfo");
 };
 
