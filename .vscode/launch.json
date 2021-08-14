@@ -8,7 +8,7 @@
       "name": "Python: Django",
       "type": "python",
       "request": "launch",
-      "program": "D:\\Programming\\eCommerce-React, Django\\backend\\manage.py",
+      "program": "D:\\Programming\\eCommerce-React-Django\\backend\\manage.py",
       "args": ["runserver"],
       "django": true
     },
@@ -16,7 +16,7 @@
       "name": "Python: Django",
       "type": "python",
       "request": "launch",
-      "program": "D:\\Programming\\eCommerce-React, Django\\backend\\manage.py",
+      "program": "D:\\Programming\\eCommerce-React+Django\\backend\\manage.py",
       "args": ["runserver"],
       "django": true
     }
