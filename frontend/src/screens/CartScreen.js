@@ -31,6 +31,7 @@ function CartScreen({ match, history, location }) {
   }, [dispatch, productId, qty]);
 
   const checkoutHandler = () => {
+    console.log("from checkout ");
     history.push("/login?redirect=shipping");
   };
 
