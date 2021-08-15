@@ -15,8 +15,16 @@ import Message from "../components/Message";
 
 function PlaceOrderScreen() {
   const cart = useSelector((state) => state.cart);
+  cart.itemsPrice = cart.cartItems.reduce((total, item) => {
+    return (total += item.qty * item.price);
+  }, 0);
+
+  cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 25;
+
+  cart.taxPrice = (cart.itemsPrice + cart.shippingPrice) * 0.05;
+  cart.totalPrice = cart.taxPrice + cart.shippingPrice + cart.itemsPrice;
   const placeOrder = () => {
-    console.log("s");
+    console.log("placeOrder");
   };
   return (
     <div>
@@ -86,28 +94,28 @@ function PlaceOrderScreen() {
               <ListGroup.Item>
                 <Row>
                   <Col>Item:</Col>
-                  <Col>${cart.itemsPrice}</Col>
+                  <Col>${cart.itemsPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
-                  <Col>${cart.shippingPrice}</Col>
+                  <Col>${cart.shippingPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Tax:</Col>
-                  <Col>${cart.taxPrice}</Col>
+                  <Col>${cart.taxPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>${cart.totalPrice}</Col>
+                  <Col>${cart.totalPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
 
