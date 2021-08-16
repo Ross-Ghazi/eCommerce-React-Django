@@ -71,7 +71,7 @@ def getOrderById(request,pk):
         order=Order.objects.get(_id=pk)
         if user.is_staff or order.user==user:
             serializer=OrderSerializer(order, many=False)
-            return Response(serializer)
+            return Response(serializer.data)
         else:
             return Response ({"detail":" Not authorized to view this order"}, status=status.HTTP_400_BAD_REQUEST)
     except:
