@@ -13,6 +13,7 @@ from rest_framework import status
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def addOrrderItems(request):
+    print("---------------")
     user=request.user
     data=request.data
 
@@ -21,41 +22,42 @@ def addOrrderItems(request):
     if orderItems and len(orderItems) ==0:
         return Response ({"detail": "No Order to Process"}, status=status.HTTP_400_BAD_REQUEST)
     
-    # create order
-    order=Order.objects.create(
-    user=user,
-    paymentMethod=data["paymentMethod"],
-    taxPrice=data["taxPrice"],
-    shippingPrice=data["shippingPrice"],
-    totalPrice=data["totalPrice"],
-    )
-
-    # create shipping address
-    shipping=ShippingAddress.objects.create(
-    order=order,
-    address=data["shippingAddress"]["address"],
-    city=data["shippingAddress"]["city"],
-    postalCode=data["shippingAddress"]["postalcode"],
-    country=data["shippingAddress"]["country"],
-    )
-
-
-    # create Order items
-    for i in orderItems:
-        product=Product.objects.get(_id=i["product"])
-
-        item=OrderItem.objects.create(
-        product=product,
-        order=order,
-        name=product.name,
-        qty=i["qty"],
-        price=i["price"],
-        image=product.image.url
+    else:
+        # create order
+        order=Order.objects.create(
+        user=user,
+        paymentMethod=data["paymentMethod"],
+        taxPrice=data["taxPrice"],
+        shippingPrice=data["shippingPrice"],
+        totalPrice=data["totalPrice"],
         )
-        #update stock
 
-        product.countInstock-=item.qty
-        product.save()
+        # create shipping address
+        shipping=ShippingAddress.objects.create(
+        order=order,
+        address=data["shippingAddress"]["address"],
+        city=data["shippingAddress"]["city"],
+        postalCode=data["shippingAddress"]["postalcode"],
+        country=data["shippingAddress"]["country"],
+        )
 
-    serializer=OrderSerializer(order, many=True)
-    return Response (serializer.data)
+
+        # create Order items
+        for i in orderItems:
+            product=Product.objects.get(_id=i["product"])
+
+            item=OrderItem.objects.create(
+            product=product,
+            order=order,
+            name=product.name,
+            qty=i["qty"],
+            price=i["price"],
+            image=product.image.url
+            )
+            #update stock
+
+            product.countInStock-=item.qty
+            product.save()
+
+        serializer=OrderSerializer(order, many=False)
+        return Response (serializer.data)
