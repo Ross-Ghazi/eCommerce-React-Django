@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import serializers
 
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
@@ -61,3 +62,17 @@ def addOrrderItems(request):
 
         serializer=OrderSerializer(order, many=False)
         return Response (serializer.data)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getOrderById(request,pk):
+    user=request.user
+    try:
+        order=Order.objects.get(_id=pk)
+        if user.is_staff or order.user==user:
+            serializer=OrderSerializer(order, many=False)
+            return Response(serializer)
+        else:
+            return Response ({"detail":" Not authorized to view this order"}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+            return Response ({"detail":" Order does not exist"}, status=status.HTTP_400_BAD_REQUEST)
