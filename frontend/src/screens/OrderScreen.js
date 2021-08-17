@@ -13,27 +13,56 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { getOrderDetails } from "../actions/orderActions";
+import { getOrderDetails, payOrder } from "../actions/orderActions";
+import { PayPalButton } from "react-paypal-button-v2";
+import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
 function OrderScreen({ match }) {
   const orderId = match.params.id;
 
   const dispatch = useDispatch();
 
+  const [sdkReady, setSdkReady] = useState(false);
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const { success: successPay, loading: loadingPay } = orderPay;
 
   if (!loading & error) {
     order.itemsPrice = order.orderItems.reduce((total, item) => {
       return (total += item.qty * item.price);
     }, 0);
   }
-  useEffect(() => {
-    if (!order || order._id !== Number(orderId)) {
-      dispatch(getOrderDetails(orderId));
-    }
-  }, [order, orderId]);
+  const addPayPakScript = () => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src =
+      "https://www.paypal.com/sdk/js?client-id=AYPHR5k17yPpbN0pjrTFHDRPkT1mL4FPhyTGrCVc-s06NaCvSTcMq4rD6P1NX4bWr8-p13eWDx40IVJ5";
+    script.async = true;
+    script.onload = () => {
+      setSdkReady(true);
+    };
+    document.body.appendChild(script);
+  };
 
+  useEffect(() => {
+    if (!order || successPay || order._id !== Number(orderId)) {
+      dispatch({ type: ORDER_PAY_RESET });
+      dispatch(getOrderDetails(orderId));
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPakScript();
+      } else {
+        setSdkReady(true);
+      }
+    }
+  }, [order, orderId, successPay]);
+
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(orderId, paymentResult));
+  };
   return loading ? (
     <Loader />
   ) : error ? (
@@ -154,6 +183,21 @@ function OrderScreen({ match }) {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+
+              {!order.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}
+
+                  {!sdkReady ? (
+                    <Loader />
+                  ) : (
+                    <PayPalButton
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>
