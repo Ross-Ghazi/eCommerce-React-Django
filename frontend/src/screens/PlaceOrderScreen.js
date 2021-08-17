@@ -38,7 +38,7 @@ function PlaceOrderScreen({ history }) {
 
   useEffect(() => {
     if (success) {
-      history.push(`./order/${order._id}`);
+      history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });
     }
   }, [success, history]);
@@ -83,9 +83,9 @@ function PlaceOrderScreen({ history }) {
             <ListGroup.Item>
               <h2>Order items</h2>
               {cart.cartItems.length === 0 ? (
-                <Message varaint="info">Your card is empty</Message>
+                <Message variant="info">Your card is empty</Message>
               ) : (
-                <ListGroup varaint="flush">
+                <ListGroup variant="flush">
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>

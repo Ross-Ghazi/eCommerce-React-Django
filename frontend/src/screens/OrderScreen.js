@@ -13,15 +13,15 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-// import { getOrderDetails } from "../actions/orderActions";
+import { getOrderDetails } from "../actions/orderActions";
 
 function OrderScreen({ match }) {
   const orderId = match.params.id;
 
   const dispatch = useDispatch();
 
-  const orderDetail = useSelector((state) => state.orderDetail);
-  const { order, error, loading } = orderDetail;
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, error, loading } = orderDetails;
 
   if (!loading & error) {
     order.itemsPrice = order.orderItems.reduce((total, item) => {
@@ -30,7 +30,7 @@ function OrderScreen({ match }) {
   }
   useEffect(() => {
     if (!order || order._id !== Number(orderId)) {
-      // dispatch(getOrderDetails(orderId));
+      dispatch(getOrderDetails(orderId));
     }
   }, [order, orderId]);
 
@@ -63,11 +63,11 @@ function OrderScreen({ match }) {
               </p>
 
               {order.isDelivered ? (
-                <Message varaint="success">
+                <Message variant="success">
                   Deilvered on {order.deliveredAt}{" "}
                 </Message>
               ) : (
-                <Message varaint="warning">Not Deilvered </Message>
+                <Message variant="warning">Not Deilvered </Message>
               )}
             </ListGroup.Item>
 
@@ -80,18 +80,18 @@ function OrderScreen({ match }) {
               </p>
 
               {order.isPaid ? (
-                <Message varaint="success">Paid on {order.paidAt} </Message>
+                <Message variant="success">Paid on {order.paidAt} </Message>
               ) : (
-                <Message varaint="warning">Not Paid </Message>
+                <Message variant="warning">Not Paid </Message>
               )}
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Order items</h2>
               {order.orderItems.length === 0 ? (
-                <Message varaint="info">Order is empty</Message>
+                <Message variant="info">Order is empty</Message>
               ) : (
-                <ListGroup varaint="flush">
+                <ListGroup variant="flush">
                   {order.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
@@ -130,28 +130,28 @@ function OrderScreen({ match }) {
               <ListGroup.Item>
                 <Row>
                   <Col>Item:</Col>
-                  <Col>${order.itemsPrice.toFixed(2)}</Col>
+                  <Col>${order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
-                  <Col>${order.shippingPrice.toFixed(2)}</Col>
+                  <Col>${order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Tax:</Col>
-                  <Col>${order.taxPrice.toFixed(2)}</Col>
+                  <Col>${order.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>${order.totalPrice.toFixed(2)}</Col>
+                  <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
