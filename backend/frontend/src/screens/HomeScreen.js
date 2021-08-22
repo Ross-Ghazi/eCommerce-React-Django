@@ -14,7 +14,6 @@ function HomeScreen() {
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
-
   return (
     <div>
       <h1>Latest product </h1>

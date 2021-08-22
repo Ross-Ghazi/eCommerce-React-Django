@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'base.apps.BaseConfig',
 
+    "storages",
+
+
 ]
 
 REST_FRAMEWORK = {
@@ -102,8 +105,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "ecommerce",
+        "USER":"Rouzbeh1797",
+        "PASSWORD":"Afsaneh639",
+        "HOST":"ecommerce-identifier.ck2kvj1gxkpm.us-east-2.rds.amazonaws.com",
+        "PORT": "5432"
     }
 }
 
@@ -161,3 +172,9 @@ MEDIA_ROOT="static/images"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS=True
+
+AWS_QUERYSTRING_AUTH=False
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID="AKIAXI5W2TIIHOG35L5L"
+AWS_SECRET_ACCESS_KEY="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"
+AWS_STORAGE_BUCKET_NAME="ecommerce-photos"
