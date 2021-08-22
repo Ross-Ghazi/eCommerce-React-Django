@@ -27,8 +27,9 @@ SECRET_KEY = 'django-insecure-=%cwc1^kr_3)fwvxleif&9c2qkl(%l12zon+i(-5e=xn!bf)11
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
+
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -65,6 +66,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
    
 
     'django.middleware.security.SecurityMiddleware',
@@ -112,7 +114,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': "ecommerce",
         "USER":"Rouzbeh1797",
-        "PASSWORD":"Afsaneh639",
+        "PASSWORD":os.environ.get("DB_PASS"),
         "HOST":"ecommerce-identifier.ck2kvj1gxkpm.us-east-2.rds.amazonaws.com",
         "PORT": "5432"
     }
@@ -164,7 +166,8 @@ STATICFILES_DIRS=[
     BASE_DIR /"frontend/build/static"
 ]
 
-MEDIA_ROOT="static/images"
+MEDIA_ROOT=BASE_DIR/"static/images"
+STATIC_ROOT=BASE_DIR/"staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -175,6 +178,10 @@ CORS_ALLOW_ALL_ORIGINS=True
 
 AWS_QUERYSTRING_AUTH=False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID="AKIAXI5W2TIIHOG35L5L"
-AWS_SECRET_ACCESS_KEY="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"
+AWS_ACCESS_KEY_ID=os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY=os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME="ecommerce-photos"
+
+if os.getcwd()=="/app":
+    DEBUG = False
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost','ecommerce-django-react-project.herokuapp.com']
