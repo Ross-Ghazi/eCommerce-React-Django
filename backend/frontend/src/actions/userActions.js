@@ -15,6 +15,7 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
   USER_DETAIL_RESET,
+  REGISTER_RESET,
 } from "../constants/userConstants";
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 export const login = (email, password) => async (dispatch) => {
@@ -45,10 +46,11 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAIL_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
+  dispatch({ type: REGISTER_RESET });
   localStorage.removeItem("userInfo");
 };
 
-export const register = (email, password, name) => async (dispatch) => {
+export const register = (name, email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
     const url = "/api/users/register/";

@@ -14,6 +14,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  REGISTER_RESET,
 } from "../constants/userConstants";
 
 export const UserLoginRedcuer = (state = {}, action) => {
@@ -41,6 +42,9 @@ export const UserRegisterRedcuer = (state = {}, action) => {
       return { loading: false, userInfo: action.payload };
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
+
+    case REGISTER_RESET:
+      return {};
 
     default:
       return state;
