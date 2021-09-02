@@ -21,8 +21,12 @@ function PlaceOrderScreen({ history }) {
 
   cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 25;
 
-  cart.taxPrice = (cart.itemsPrice + cart.shippingPrice) * 0.05;
-  cart.totalPrice = cart.taxPrice + cart.shippingPrice + cart.itemsPrice;
+  cart.taxPrice = Number(
+    ((cart.itemsPrice + cart.shippingPrice) * 0.05).toFixed(2)
+  );
+  cart.totalPrice = Number(
+    (cart.taxPrice + cart.shippingPrice + cart.itemsPrice).toFixed(2)
+  );
 
   if (!cart.paymentMethod) {
     history.push(`/payment`);
@@ -116,28 +120,28 @@ function PlaceOrderScreen({ history }) {
               <ListGroup.Item>
                 <Row>
                   <Col>Item:</Col>
-                  <Col>${cart.itemsPrice.toFixed(2)}</Col>
+                  <Col>${cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
-                  <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                  <Col>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Tax:</Col>
-                  <Col>${cart.taxPrice.toFixed(2)}</Col>
+                  <Col>${cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>${cart.totalPrice.toFixed(2)}</Col>
+                  <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
