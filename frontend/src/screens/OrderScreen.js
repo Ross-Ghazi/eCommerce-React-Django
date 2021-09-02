@@ -37,8 +37,7 @@ function OrderScreen({ match }) {
     };
     document.body.appendChild(script);
   };
-  console.log("orderId", orderId);
-  console.log("orderId", typeof orderId);
+
   useEffect(() => {
     if (!order || successPay || order._id != orderId) {
       dispatch({ type: ORDER_PAY_RESET });
