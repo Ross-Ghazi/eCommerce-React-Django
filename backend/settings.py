@@ -183,5 +183,7 @@ AWS_SECRET_ACCESS_KEY=os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME="ecommerce-photos"
 
 if os.getcwd()=="/app":
+    SECURE_PROXY_SSL_HEADER=("HTTP_X_FORWARDED_PHOTO", "https")
+    SECURE_SSL_REDIRECT=True
     DEBUG = False
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost','ecommerce-django-react-project.herokuapp.com']
+    
