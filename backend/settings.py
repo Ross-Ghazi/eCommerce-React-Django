@@ -29,7 +29,7 @@ DEBUG = True
 
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','ecommerce-django-react-project.herokuapp.com', 'www.onlineshopsample.ca', 'onlineshopsample.ca']
 
 # Application definition
 
