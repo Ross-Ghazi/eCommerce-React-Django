@@ -103,7 +103,7 @@ function ProfileScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Email Password</Form.Label>
+            <Form.Label> Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter password"
@@ -113,7 +113,7 @@ function ProfileScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="password2">
-            <Form.Label>Cinfirm Password</Form.Label>
+            <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Confrim password"
