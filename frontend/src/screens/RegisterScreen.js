@@ -66,7 +66,7 @@ function RegisterScreen({ location, history }) {
         </Form.Group>
 
         <Form.Group controlId="password">
-          <Form.Label>Email Password</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             required
