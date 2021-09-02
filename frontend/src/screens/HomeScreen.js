@@ -16,7 +16,7 @@ function HomeScreen() {
   }, [dispatch]);
   return (
     <div>
-      <h1>Latest product ! </h1>
+      <h1>Latest product</h1>
       {loading ? (
         <Loader />
       ) : error ? (

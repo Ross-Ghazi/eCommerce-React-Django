@@ -1,13 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Form,
-  Button,
-  ListGroup,
-  Image,
-  Card,
-} from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Row, Col, Button, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
@@ -41,7 +33,7 @@ function PlaceOrderScreen({ history }) {
       history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });
     }
-  }, [success, history]);
+  }, [success, history, dispatch, order._id]);
 
   const placeOrder = () => {
     dispatch(

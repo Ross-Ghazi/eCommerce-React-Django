@@ -13,7 +13,6 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-  USER_UPDATE_RESET,
   USER_DETAIL_RESET,
   REGISTER_RESET,
 } from "../constants/userConstants";
@@ -21,7 +20,6 @@ import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
-    const url = "/api/users/login/";
     const config = { headers: { "Content-type": "application/json" } };
     const { data } = await axios.post(
       "/api/users/login/",
@@ -35,8 +33,8 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.detail
+          ? error.response.data.detail
           : error.message,
     });
   }
@@ -53,7 +51,6 @@ export const logout = () => (dispatch) => {
 export const register = (name, email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-    const url = "/api/users/register/";
     const config = { headers: { "Content-type": "application/json" } };
     const { data } = await axios.post(
       "/api/users/register/",

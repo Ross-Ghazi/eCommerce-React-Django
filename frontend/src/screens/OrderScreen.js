@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Form,
-  Button,
-  ListGroup,
-  Image,
-  Card,
-} from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getOrderDetails, payOrder } from "../actions/orderActions";
@@ -58,7 +49,7 @@ function OrderScreen({ match }) {
         setSdkReady(true);
       }
     }
-  }, [order, orderId, successPay]);
+  }, [order, orderId, successPay, dispatch]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));

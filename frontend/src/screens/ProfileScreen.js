@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Row, Col, Form, Button, Table } from "react-bootstrap";
-
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import FormContainer from "../components/FormContainer";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { USER_UPDATE_RESET } from "../constants/userConstants";
 import { listMyOrders } from "../actions/orderActions";
@@ -50,7 +47,7 @@ function ProfileScreen({ location, history }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password != password2) {
+    if (password !== password2) {
       setMessage("Passwords do not match");
     } else {
       dispatch(
