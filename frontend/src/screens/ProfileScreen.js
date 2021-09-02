@@ -41,9 +41,9 @@ function ProfileScreen({ location, history }) {
       } else if (success) {
         dispatch({ type: USER_UPDATE_RESET });
         dispatch(getUserDetails("profile"));
+        setMessage("");
         setIsProfileUpdated(true);
       } else {
-        console.log("3333");
         setName(user.name);
         setEmail(user.email);
       }
@@ -53,6 +53,7 @@ function ProfileScreen({ location, history }) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== password2) {
+      setIsProfileUpdated(false);
       setMessage("Passwords do not match");
     } else {
       dispatch(
