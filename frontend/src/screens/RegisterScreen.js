@@ -77,11 +77,11 @@ function RegisterScreen({ location, history }) {
         </Form.Group>
 
         <Form.Group controlId="password2">
-          <Form.Label>Cinfirm Password</Form.Label>
+          <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
             required
-            placeholder="Confrim password"
+            placeholder="Confirm password"
             value={password2}
             onChange={(e) => setPassword2(e.target.value)}
           ></Form.Control>
@@ -93,7 +93,7 @@ function RegisterScreen({ location, history }) {
       </Form>
 
       <Row className="py-3">
-        Already haveh ab account ?
+        Already haveh an account ?
         <Link to={redirect ? `/login/?redirect=${redirect}` : "login"}>
           Sign in{" "}
         </Link>
