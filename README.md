@@ -19,7 +19,7 @@
 
 <br />
 
-**I have similar project in my Github repo using the same frontend but using Django (Python) in backend.**
+**There another project in my Github repo using the same frontend but using Node.js (express) in backend and MongoDB for database.**
 
 <br />
 
