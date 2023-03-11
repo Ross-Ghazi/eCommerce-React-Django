@@ -115,7 +115,7 @@ DATABASES = {
         'NAME': "ecommerce",
         "USER":os.environ.get("DB_USERNAME"),
         "PASSWORD":os.environ.get("DB_PASS"),
-        "HOST":"notWorking1-test-ecommerce-identifier.ck2kvj1gxkpm.us-east-2.rds.amazonaws.com",
+        "HOST":"ecommerce.cye9kkon03zc.us-east-2.rds.amazonaws.com",
         "PORT": "5432"
     }
 }
